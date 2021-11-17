@@ -1,11 +1,12 @@
-#### AWS linux ####
+#### CentOS 7 ####
 yum update -y
 yum install java-1.8.0-openjdk.x86_64 -y
-yum install java-1.8.0-openjdk-devel
+yum install java-1.8.0-openjdk-devel -y
 wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
 rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
-amazon-linux-extras install epel
-yum install jenkins
+amazon-linux-extras install epel # on AWS Linux
+yum -y install epel-release
+yum install jenkins -y
 
 #### CentOS 8 ####
 dnf install java-1.8.0-openjdk-devel
