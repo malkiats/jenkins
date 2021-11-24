@@ -1,0 +1,32 @@
+pipeline{
+    agent any
+    tools {
+      maven 'maven'
+    }
+    
+    stages{
+        stage('SCM'){
+            steps{
+                git credentialsId: 'github', 
+                url: 'https://github.com/malkiats/maven-project.git'
+            }
+        }
+        
+        stage('Maven Build'){
+            steps{
+                sh "mvn clean package"
+            }
+        }
+        
+        stage('Docker Build'){
+            steps{
+                sh "docker build -t malkiats/maliapp:0.0.1"
+            }
+        }
+    }
+}
+
+def getVersion(){
+    def sh commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
+    return commitHash
+}
