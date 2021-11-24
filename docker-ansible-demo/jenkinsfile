@@ -3,7 +3,9 @@ pipeline{
     tools {
       maven 'maven'
     }
-    
+    environment {
+      DOCKER_TAG = getVersion()
+    }   
     stages{
         stage('SCM'){
             steps{
@@ -20,13 +22,13 @@ pipeline{
         
         stage('Docker Build'){
             steps{
-                sh "docker build -t malkiats/maliapp:0.0.1"
+                sh "docker build . -t malkiats/maliapp:${DOCKER_TAG} "
             }
         }
     }
 }
 
 def getVersion(){
-    def sh commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
+    def commitHash = sh label: '', returnStdout: true, script: 'git rev-parse --short HEAD'
     return commitHash
 }
