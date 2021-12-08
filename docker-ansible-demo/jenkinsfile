@@ -25,6 +25,15 @@ pipeline{
                 sh "docker build . -t malkiats/maliapp:${DOCKER_TAG} "
             }
         }
+        
+        stage('DockerHub Push'){
+            steps{
+                withCredentials([string(credentialsId: 'DockerHubP', variable: 'DockerHubP')]) {
+                    sh "docker login -u malkiats -p ${dockerHubP}"
+                }
+                sh "docker push malkiats/maliapp:${DOCKER_TAG} "
+            }
+        }        
     }
 }
 
