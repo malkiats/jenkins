@@ -33,6 +33,12 @@ pipeline{
                 }
                 sh "docker push malkiats/maliapp:${DOCKER_TAG} "
             }
+        }
+        
+        stage('Docker Deploy'){
+            steps{
+                ansiblePlaybook credentialsId: 'dev', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'dev.inv', playbook: 'ansible-deploy-docker.yml'
+            }
         }        
     }
 }
