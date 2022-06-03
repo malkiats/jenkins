@@ -6,6 +6,7 @@ amazon-linux-extras install epel # on AWS Linux
 yum -y install epel-release
 yum install jenkins -y
 systemctl start jenkins; systemctl status jenkins; systemctl enable jenkins
+url: http://your_ip_or_domain:8080
 
 #### CentOS 8 ####
 dnf install java-1.8.0-openjdk-devel
